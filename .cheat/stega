@@ -1,0 +1,6 @@
+#base64 to image
+cat file.txt | sed '/^\s*$/d'  | base64 -d  | xxd -r -p > image.png
+
+#Stegide
+steghide extract -sf irked.jpg
+

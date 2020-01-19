@@ -1,0 +1,6 @@
+# Extraction
+binwalk -e firmware.bin
+binwalk --extract=./my_extract.conf firmware.bin
+
+# Recursive Extraction
+binwalk -Me firmware.bin

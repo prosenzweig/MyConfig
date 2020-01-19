@@ -1,0 +1,27 @@
+# Tmux command base :
+#start new with session name:
+tmux new -s myname
+
+#attach:
+tmux a  #  (or at, or attach)
+
+#attach to named:
+tmux a -t myname
+
+#list sessions:
+tmux ls
+
+#Buffer stuff
+Bind + [ enter copy mode
+Bind + ] paste buffer entry
+
+tmux list-buffers
+tmux show-buffer -b buffer0210
+
+#Kill windows & Panel
+tmux kill-window -t window-number
+tmux kill-window -t 9
+
+Bind q to show pane numbers.
+Bind x to kill pane
+Bind & to kill window

@@ -1,0 +1,18 @@
+#Rechercher le type d'image
+volatility -f memory.dump imageinfo
+
+#Lister les processus
+volatility -f memory.dmp --profile=Win7SP1x86 psscan
+
+#Lister les processus en arbre
+volatility -f memory.dmp --profile=Win7SP1x86 pstree
+
+#Lister les fichiers dans un dump mémoire
+volatility -f memory.dmp --profile=Win7SP1x86 filescan
+
+#Display process command-line arguments
+volatility -f memory.dmp --profile=Win7SP1x86 cmdline
+
+#Dumper un fichier dans un dossier
+volatility -f memory.dmp --profile=Win7SP1x86 dumpfiles -Q 0x000000000f3ee038 --name -D worddump/
+

@@ -1,0 +1,2 @@
+python ~/opt/forensic/oledump/oledump.py invoice-42369643.xlsm
+python ~/opt/forensic/oledump/oledump.py invoice-42369643.xlsm -v -s A10

